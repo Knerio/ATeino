@@ -1,13 +1,12 @@
 void setup() {
   Serial.begin(9600);
-  pinMode(13, OUTPUT);
+  pinMode(9, OUTPUT);
   pinMode(2, INPUT_PULLUP);
 }
 
 void loop() {
-  if (digitalRead(2) == HIGH) {
-    digitalWrite(13, LOW);
-  } else {
-    digitalWrite(13, HIGH);
-  }
+  int brightness = analogRead(A5) * 0.25; 
+  if (brightness < 50) brightness = 0;
+  analogWrite(9, brightness);
+  Serial.println(brightness);
 }
