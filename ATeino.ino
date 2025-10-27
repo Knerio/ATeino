@@ -73,7 +73,7 @@ bool test(int pattern_index) {
         break;
       case 'H':
         pinMode(pin, INPUT);
-        if (digitalRead(pin) != 1) return true;
+        if (digitalRead(pin) != 1) return false;
         break;
       case 'L':
         pinMode(pin, INPUT);
