@@ -5,6 +5,12 @@ const uint8_t pin_map[][3] = {
   {4, 3, 2}
 };
 
+const uint8_t pattern[][3] = {
+  {LOW, LOW, LOW},
+  {LOW, HIGH, LOW},
+  {HIGH, LOW, LOW},
+  {HIGH, HIGH, HIGH}
+};
 
 void setup() {
   Serial.begin(9600);
@@ -35,18 +41,11 @@ void setup() {
 }
 
 bool test(uint8_t pin_1, uint8_t pin_2, uint8_t output_pin) {
-  digitalWrite(pin_1, HIGH);
-  digitalWrite(pin_2, HIGH);
-  if (digitalRead(output_pin) != 1) return false;
-  digitalWrite(pin_1, HIGH);
-  digitalWrite(pin_2, LOW);
-  if (digitalRead(output_pin) != 0) return false;
-  digitalWrite(pin_1, LOW);
-  digitalWrite(pin_2, HIGH);
-  if (digitalRead(output_pin) != 0) return false;
-  digitalWrite(pin_1, LOW);
-  digitalWrite(pin_2, LOW);
-  if (digitalRead(output_pin) != 0) return false;
+  for(int i = 0; i < sizeof(pattern) / sizeof(pattern[0]); i++) {
+    digitalWrite(pin_1, pattern[i][0]);
+    digitalWrite(pin_2, pattern[i][1]);
+    if (digitalRead(output_pin) != pattern[i][2]) return false;
+  }
 
   return true;
 }
