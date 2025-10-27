@@ -1,30 +1,23 @@
-const uint8_t pin_configuration[2][8] = {
-  {
-    9, A1, A3, A4, 7, 6, 4, 3
-  },
-  {
-    A2, A5, 5, 2, -1, -1, -1, -1
-  }
+const uint8_t pin_configuration[12] = {
+    9, A1, A3, A4, 7, 6, 4, 3, A2, A5, 5, 2
 };
 
-const uint8_t pattern[4][2][8] = {
-  { { LOW, LOW, LOW, LOW, LOW, LOW, HIGH, HIGH }, { LOW, LOW, LOW, HIGH, -1, -1, -1, -1 } },
-  { { LOW, LOW, LOW, LOW, HIGH, HIGH, LOW, LOW }, { LOW, LOW, HIGH, LOW, -1, -1, -1, -1 } },
-  { { LOW, LOW, HIGH, HIGH, LOW, LOW, LOW, LOW }, { LOW, HIGH, LOW, LOW, -1, -1, -1, -1 } },
-  { { HIGH, HIGH, LOW, LOW, LOW, LOW, LOW, LOW }, { HIGH, LOW, LOW, LOW, -1, -1, -1, -1 } }
+// 0 -> write low
+// 1 -> write high
+// L -> read low
+// H -> read high
+// X -> nothing read/write
+
+const char pattern[4][12] = {
+  { '0', '0', '0', '0', '0', '0', '1', '1', 'L', 'L', 'L', 'H' },
+  { '0', '0', '0', '0', '1', '1', '0', '0', 'L', 'L', 'H', 'L' },
+  { '0', '0', '1', '1', '0', '0', '0', '0', 'L', 'H', 'L', 'L' },
+  { '1', '1', '0', '0', '0', '0', '0', '0', 'H', 'L', 'L', 'L' } 
 };
 
 void setup() {
   Serial.begin(9600);
   
-  for(int i = 0; i < sizeof(pin_configuration[0]) / sizeof(pin_configuration[0][0]); i++) {
-      pinMode(pin_configuration[0][i], OUTPUT);
-  }
-  for(int i = 0; i < sizeof(pin_configuration[1]) / sizeof(pin_configuration[1][0]); i++) {
-    pinMode(pin_configuration[1][i], INPUT);
-  }
-
-
   Serial.println();
   Serial.println("Testing chip: ");
   
@@ -48,24 +41,36 @@ void setup() {
 
 bool test(int pattern_index) {
   Serial.println("--- Starting Pattern ---");
-  
-  for(int i = 0; i < sizeof(pattern[pattern_index][0]) / sizeof(pattern[pattern_index][0][0]); i++) {
-    int pin = pin_configuration[0][i];
+
+  for(int i = 0; i < sizeof(pattern[pattern_index]) / sizeof(pattern[pattern_index][0]); i++) {
+    int pin = pin_configuration[i];
+    char type = pattern[pattern_index][i];
+
+    Serial.println("Pin " + String(pin) + " with type " + String(type));
+
     if(pin == 255) continue;
-    Serial.println("Setting pin " + String(pin) + " to " + String(pattern[pattern_index][0][i]));
-    digitalWrite(pin, pattern[pattern_index][0][i]);
+    switch(type) {
+      case '0':
+        pinMode(pin, OUTPUT);
+        digitalWrite(pin, 0);
+        break;
+      case '1':
+        pinMode(pin, OUTPUT);
+        digitalWrite(pin, 1);
+        break;
+      case 'H':
+        pinMode(pin, INPUT);
+        if (digitalRead(pin) != 1) return true;
+        break;
+      case 'L':
+        pinMode(pin, INPUT);
+        if (digitalRead(pin) != 0) return false;
+        break;
+    }
+
+    delay(5);
   }
 
-  delay(20);
-
-  for(int i = 0; i < sizeof(pattern[pattern_index][1]) / sizeof(pattern[pattern_index][1][0]); i++) {
-    int pin = pin_configuration[1][i];
-    int result = digitalRead(pin);
-    int expected_value = pattern[pattern_index][1][i];
-    if (pin == 255) continue;
-    Serial.println("Expecting " + String(expected_value) + " on pin " + String(pin));
-    if (result != expected_value) return false;
-  }
 
   Serial.println("--- Tested Pattern ---");
 
