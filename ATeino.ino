@@ -37,6 +37,19 @@ void setup() {
   Serial.println("Successes: " + String(successes));
   Serial.println("Fails: " + String(fails));
   Serial.println("-----");
+
+  // 12 = Red, 11 = Green
+  int LED = fails == 0 ? 12 : 11;
+
+  pinMode(LED, OUTPUT);
+
+
+  while(true) {
+    digitalWrite(LED, HIGH);
+    delay(200);
+    digitalWrite(LED, LOW);
+    delay(200);
+  }
 }
 
 bool test(int pattern_index) {
