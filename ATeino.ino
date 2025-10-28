@@ -1,24 +1,5 @@
-const uint8_t pin_configuration[] = {
-    9, A1, A2, A3, A4, A5, 7, 6, 5, 4, 3, 2
-};
-
-// 0 -> write low
-// 1 -> write high
-// L -> read low
-// H -> read high
-// X -> nothing read/write
-
-const char pattern[][12] = {
-  { '0', '1', 'L', 'L', 'L', 'L', '0', '1', 'L', 'L', 'L', 'L' },
-  { '1', '0', 'L', 'L', 'L', 'L', '1', '0', 'L', 'L', 'L', 'L' },
-  { '0', '0', 'H', 'L', 'L', 'L', '0', '0', 'H', 'L', 'L', 'L' },
-  { '1', '0', 'H', 'L', 'L', 'L', '1', '0', 'H', 'L', 'L', 'L' },
-  { '0', '0', 'L', 'H', 'L', 'L', '0', '0', 'L', 'H', 'L', 'L' },
-  { '1', '0', 'L', 'H', 'L', 'L', '1', '0', 'L', 'H', 'L', 'L' },
-  { '0', '0', 'H', 'H', 'L', 'L', '0', '0', 'H', 'H', 'L', 'L' },
-  { '1', '0', 'H', 'H', 'L', 'L', '1', '0', 'H', 'H', 'L', 'L' },
-  { '0', '0', 'L', 'L', 'H', 'L', '0', '0', 'L', 'L', 'H', 'L' },
-};
+#include <PatternConfiguration.cpp>
+const PatternConfiguration = PatternConfiguration();
 
 void setup() {
   Serial.begin(9600);
