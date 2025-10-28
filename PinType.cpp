@@ -1,7 +1,0 @@
-enum PinType {
-  READ_HIGH,
-  READ_LOW,
-  WRITE_HIGH,
-  WRITE_LOW,
-  UNKNOWN,
-}
