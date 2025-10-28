@@ -77,6 +77,28 @@ bool test(int pattern_index) {
         digitalWrite(pin, 1);
         break;
       case 'H':
+      case 'L':
+        break; // Do nothing here because we first write then read
+      case 'X':
+        break;
+      default:
+        Serial.println("Aborting Test. Unknown pin type: " + String(type));
+        return false;
+    }
+  }
+
+  for(int i = 0; i < sizeof(pattern[pattern_index]) / sizeof(pattern[pattern_index][0]); i++) {
+    int pin = pin_configuration[i];
+    char type = pattern[pattern_index][i];
+
+    //Serial.println("Pin " + String(pin) + " with type " + String(type));
+
+    if(pin == 255) continue;
+    switch(type) {
+      case '0':
+      case '1':
+        break; // Do nothing here because we first write then read
+      case 'H':
         pinMode(pin, INPUT);
         if (digitalRead(pin) != 1) return false;
         break;
@@ -89,10 +111,10 @@ bool test(int pattern_index) {
       default:
         Serial.println("Aborting Test. Unknown pin type: " + String(type));
         return false;
-    }
-
-    delay(5);
+      }
   }
+
+  delay(5);
 
 
   Serial.println("--- Tested Pattern ---");
