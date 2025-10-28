@@ -65,7 +65,7 @@ bool test(int pattern_index) {
     int pin = pin_configuration[i];
     char type = pattern[pattern_index][i];
 
-    Serial.println("Pin " + String(pin) + " with type " + String(type));
+    //Serial.println("Pin " + String(pin) + " with type " + String(type));
 
     if(pin == 255) continue;
     switch(type) {
@@ -85,6 +85,11 @@ bool test(int pattern_index) {
         pinMode(pin, INPUT);
         if (digitalRead(pin) != 0) return false;
         break;
+      case 'X':
+        break;
+      default:
+        Serial.println("Aborting Test. Unknown pin type: " + String(type));
+        return false;
     }
 
     delay(5);
