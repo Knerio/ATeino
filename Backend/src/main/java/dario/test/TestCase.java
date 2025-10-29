@@ -46,4 +46,8 @@ public class TestCase {
         }
         return true;
     }
+
+    public List<PinType> getPinTypes() {
+        return pinTypes;
+    }
 }

@@ -2,9 +2,11 @@ package dario;
 
 
 import com.fazecast.jSerialComm.SerialPort;
+import dario.gui.TestGUI;
 import dario.test.*;
 import dario.thread.ConsoleThread;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,13 +40,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        TestConfiguration configuration = new TestConfiguration(new PinConfiguration(List.of(PIN_9, PIN_A1, PIN_A2, PIN_A3, PIN_A4, PIN_A5, PIN_7, PIN_6, PIN_5, PIN_4, PIN_3, PIN_2)), Set.of(
-                new TestCase(List.of(WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW, WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW))
+        TestConfiguration configuration = new TestConfiguration(new PinConfiguration(new ArrayList<>(List.of(PIN_9, PIN_A1, PIN_A2, PIN_A3, PIN_A4, PIN_A5, PIN_7, PIN_6, PIN_5, PIN_4, PIN_3, PIN_2))), new ArrayList<>(
+                Set.of(
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW, WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW)))
+                )
         ));
 
-        for (TestCase testCase : configuration.getTestCases()) {
-            System.out.println("Test result: " + testCase.test(configuration.getPinConfiguration(), port));
-        }
 
+        new TestGUI(configuration, port);
     }
 }
