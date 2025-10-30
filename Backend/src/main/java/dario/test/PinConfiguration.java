@@ -11,6 +11,10 @@ public class PinConfiguration {
     }
 
     public void setPinAt(int index, Pin pin) {
+        if (index >= pins.size()) {
+            pins.add(pin);
+            return;
+        }
         pins.set(index, pin);
     }
 

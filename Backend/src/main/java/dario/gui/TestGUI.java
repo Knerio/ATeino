@@ -21,7 +21,7 @@ public class TestGUI {
 
     private JTable table;
     private DefaultTableModel tableModel;
-    private DefaultCellEditor cellEditor ;
+    private DefaultCellEditor cellEditor;
     private final TestConfiguration config;
     private final SerialPort serialPort;
 
@@ -29,12 +29,13 @@ public class TestGUI {
         this.serialPort = port;
         this.config = configuration;
         String[] columns = {"Pin 1", "Pin 2", "Pin 3", "Pin 4", "Pin 5", "Pin 6", "Pin 7", "Pin 8", "Pin 9", "Pin 10", "Pin 11", "Pin 12"};
-        Object[][] data = {
-                configuration.getPinConfiguration().getPins().toArray(new Pin[0]),
-                configuration.getTestCases().stream().findFirst().get().getPinTypes().toArray(new PinType[0]),
-        };
+        List<Object[]> data = new ArrayList<>();
+        data.add(configuration.getPinConfiguration().getPins().stream().map(pin -> ((Object) pin)).toArray());
+        for (TestCase testCase : configuration.getTestCases()) {
+            data.add(testCase.getPinTypes().stream().map(type -> (Object) type).toArray());
+        }
 
-        tableModel = new DefaultTableModel(data, columns);
+        tableModel = new DefaultTableModel(data.toArray(new Object[][]{}), columns);
         table = new JTable(tableModel);
 
         List<String> list = new ArrayList<>(Arrays.stream(PinType.values()).map(Enum::name).toList());

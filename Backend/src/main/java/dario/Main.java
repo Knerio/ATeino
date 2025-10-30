@@ -41,9 +41,23 @@ public class Main {
         }
 
         TestConfiguration configuration = new TestConfiguration(new PinConfiguration(new ArrayList<>(List.of(PIN_9, PIN_A1, PIN_A2, PIN_A3, PIN_A4, PIN_A5, PIN_7, PIN_6, PIN_5, PIN_4, PIN_3, PIN_2))), new ArrayList<>(
-                Set.of(
-                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW, WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW)))
-                )
+                List.of(
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW, WRITE_LOW, WRITE_HIGH, READ_LOW, READ_LOW, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_LOW, READ_LOW, READ_LOW, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_LOW, READ_LOW, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_HIGH, READ_LOW, READ_LOW, READ_LOW, WRITE_LOW, WRITE_LOW, READ_HIGH, READ_LOW, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_LOW, READ_LOW, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_LOW, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_LOW, READ_HIGH, READ_LOW, READ_LOW, WRITE_LOW, WRITE_LOW, READ_LOW, READ_HIGH, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_LOW, READ_HIGH, READ_LOW, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_LOW, READ_HIGH, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_HIGH, READ_HIGH, READ_LOW, READ_LOW, WRITE_LOW, WRITE_LOW, READ_HIGH, READ_HIGH, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_HIGH, READ_LOW, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_HIGH, READ_LOW, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_LOW, READ_LOW, READ_HIGH, READ_LOW, WRITE_LOW, WRITE_LOW, READ_LOW, READ_LOW, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_LOW, READ_LOW, READ_HIGH, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_LOW, READ_LOW, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_HIGH, READ_LOW, READ_HIGH, READ_LOW, WRITE_LOW, WRITE_LOW, READ_HIGH, READ_LOW, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_LOW, READ_HIGH, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_HIGH, READ_LOW, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_LOW, READ_HIGH, READ_HIGH, READ_LOW, WRITE_LOW, WRITE_LOW, READ_LOW, READ_HIGH, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_HIGH, WRITE_LOW, READ_LOW, READ_HIGH, READ_HIGH, READ_LOW, WRITE_HIGH, WRITE_LOW, READ_LOW, READ_HIGH, READ_HIGH, READ_LOW))),
+                        new TestCase(new ArrayList<>(List.of(WRITE_LOW, WRITE_LOW, READ_HIGH, READ_HIGH, READ_HIGH, READ_LOW, WRITE_LOW, WRITE_LOW, READ_HIGH, READ_HIGH, READ_HIGH, READ_LOW)))
+                        )
         ));
 
 
