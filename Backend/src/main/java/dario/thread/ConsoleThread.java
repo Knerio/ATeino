@@ -19,8 +19,8 @@ public class ConsoleThread extends Thread {
         while (true) {
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println("Console: "+line);
-                if (line.isBlank() || line == null) continue;
+                System.out.println("Console: " + line);
+                if (line.isBlank()) continue;
                 latestLine = line;
             }
         }

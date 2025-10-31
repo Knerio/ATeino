@@ -16,7 +16,7 @@ public class DataPayload {
 
     public int write(SerialPort port) {
         byte[] buffer = getData();
-        return  port.writeBytes(buffer, buffer.length);
+        return port.writeBytes(buffer, buffer.length);
     }
 
     public String writeWithExpectedResult(SerialPort port) {
