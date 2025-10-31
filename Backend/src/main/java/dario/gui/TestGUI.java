@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -50,12 +49,12 @@ public class TestGUI {
         cellEditor.addCellEditorListener(new CellEditorListener() {
             @Override
             public void editingStopped(ChangeEvent e) {
-                updateConfig();
+                updateConfig(e);
             }
 
             @Override
             public void editingCanceled(ChangeEvent e) {
-                updateConfig();
+                updateConfig(e);
             }
         });
 
@@ -74,7 +73,7 @@ public class TestGUI {
         controlPanel.add(addRowButton);
         controlPanel.add(addColumnButton);
 
-        JFrame frame = new JFrame("Custom Table Example");
+        JFrame frame = new JFrame("Advantest Mini Tester");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -100,15 +99,27 @@ public class TestGUI {
         button.setVisible(true);
     }
 
-    private void updateConfig() {
+    private void updateConfig(ChangeEvent e) {
+        List<Pin> pins = new ArrayList<>();
         for (int i = 0; i < table.getColumnCount(); i++) {
-            config.getPinConfiguration().setPinAt(i, Pin.valueOf(table.getValueAt(0, i).toString()));
+            try {
+                pins.add(i, Pin.valueOf(table.getValueAt(0, i).toString()));
+            } catch (IllegalArgumentException $) {
+                JOptionPane.showMessageDialog(null, "Expected a Pin got a PinType");
+                return;
+            }
         }
+        config.getPinConfiguration().setPins(pins);
         List<TestCase> cases = new ArrayList<>();
         for (int i = 1; i < table.getRowCount(); i++) {
             List<PinType> types = new ArrayList<>();
             for (int j = 0; j < table.getColumnCount(); j++) {
-                types.add(PinType.valueOf(table.getValueAt(i, j).toString()));
+                try {
+                    types.add(PinType.valueOf(table.getValueAt(i, j).toString()));
+                } catch (IllegalArgumentException $) {
+                    JOptionPane.showMessageDialog(null, "Expected a PinType got a Pin");
+                    return;
+                }
             }
             cases.add(new TestCase(types));
         }
